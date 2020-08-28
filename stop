@@ -1,0 +1,13 @@
+#!/bin/bash
+
+pid_file_name="pid"
+pid=$(cat $pid_file_name 2>/dev/null)
+kill "$pid" 2>/dev/null
+result=$?
+if [[ $result == 0 ]]; then
+  echo "stopped successfully"
+else
+  echo "did not do any stopping"
+fi
+
+rm $pid_file_name 2>/dev/null

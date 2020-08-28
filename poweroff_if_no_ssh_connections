@@ -1,0 +1,24 @@
+#!/bin/bash
+
+function poweroff_if_no_ssh_connections {
+  ss | grep "^tcp.*ssh" > /dev/null 2>&1
+  result=$?
+  if [[ $result != 0 ]]; then
+    sudo wall -n "-------------------------------------------------------------------------"
+    sudo wall -n "-------------------------------- Warning --------------------------------"
+    sudo wall -n "-------------------------------------------------------------------------"
+    sudo wall -n "Powering off in 20s because there are no SSH connections to this machine"
+    sudo wall -n "run"
+    sudo wall -n "sudo /etc/init.d/poweroff_if_no_ssh stop"
+    sudo wall -n "to stop this"
+    sudo wall -n "-------------------------------------------------------------------------"
+    sleep 20
+    sudo poweroff
+  fi
+}
+
+while true
+do
+  poweroff_if_no_ssh_connections
+  sleep 20
+done

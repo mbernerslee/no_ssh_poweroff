@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# exit code meaning:
+# https://refspecs.linuxfoundation.org/LSB_3.1.0/LSB-Core-generic/LSB-Core-generic/iniscrptact.html
+
+pid_file_name="pid"
+pid=$(cat $pid_file_name 2>/dev/null)
+if [[ "$pid" == "" ]]; then
+  echo "Process not running"
+  exit 0
+else
+  echo "Process running with PID $pid"
+  exit 3
+fi

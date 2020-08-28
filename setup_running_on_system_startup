@@ -1,0 +1,10 @@
+#!/bin/bash
+
+cp init.d.script init.d.script.temp
+this_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+sed -i "s|placeholder|$this_dir|g" init.d.script.temp
+sudo rm /etc/init.d/poweroff_if_no_ssh 2> /dev/null
+sudo mv ./init.d.script.temp /etc/init.d/poweroff_if_no_ssh
+sudo chmod 755 /etc/init.d/poweroff_if_no_ssh
+sudo ln -sf /etc/init.d/poweroff_if_no_ssh /etc/rc3.d/S99poweroff_if_no_ssh
+sudo update-rc.d poweroff_if_no_ssh defaults

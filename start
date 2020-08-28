@@ -1,0 +1,6 @@
+#!/bin/bash
+
+rm pid 2> /dev/null
+./poweroff_if_no_ssh_connections &
+pid=$!
+echo $pid >> pid
